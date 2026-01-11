@@ -8,9 +8,10 @@ usage: python generate.py "your prompt" -o output.mp4
 import argparse
 import sys
 
+import imageio
+import numpy as np
 import torch
 from diffusers import LTX2Pipeline
-from diffusers.utils import export_to_video
 
 
 def main():
@@ -25,6 +26,7 @@ def main():
     parser.add_argument("--frames", type=int, default=25, help="frame count")
     parser.add_argument("--fps", type=int, default=24, help="output fps")
     parser.add_argument("--seed", type=int, default=None, help="random seed")
+    parser.add_argument("--crf", type=int, default=18, help="video quality (0-51, lower=better, 18=visually lossless)")
 
     args = parser.parse_args()
 
@@ -79,7 +81,25 @@ def main():
     )
 
     video_frames = result.frames[0]
-    export_to_video(video_frames, args.output, fps=args.fps)
+
+    # convert to uint8 numpy arrays
+    frames = []
+    for frame in video_frames:
+        frame = np.array(frame, dtype=np.uint8)
+        frames.append(frame)
+
+    # export with high quality h264
+    writer = imageio.get_writer(
+        args.output,
+        fps=args.fps,
+        codec='libx264',
+        quality=None,
+        pixelformat='yuv420p',
+        output_params=['-crf', str(args.crf), '-preset', 'slow']
+    )
+    for frame in frames:
+        writer.append_data(frame)
+    writer.close()
 
     print(f"\nsaved to: {args.output}")
     print(f"seed: {args.seed}")

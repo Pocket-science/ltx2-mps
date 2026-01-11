@@ -1,0 +1,6 @@
+#!/bin/bash
+# quick wrapper for ltx-2 generation
+
+source ~/ltx-venv/bin/activate
+cd "$(dirname "$0")"
+python generate.py "$@"
