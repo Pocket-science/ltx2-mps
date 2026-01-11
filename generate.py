@@ -8,10 +8,10 @@ usage: python generate.py "your prompt" -o output.mp4
 import argparse
 import sys
 
-import imageio
 import numpy as np
 import torch
 from diffusers import LTX2Pipeline
+from diffusers.pipelines.ltx2.export_utils import encode_video
 
 
 def main():
@@ -26,8 +26,7 @@ def main():
     parser.add_argument("--frames", type=int, default=25, help="frame count")
     parser.add_argument("--fps", type=int, default=24, help="output fps")
     parser.add_argument("--seed", type=int, default=None, help="random seed")
-    parser.add_argument("--crf", type=int, default=10, help="video quality (0-51, lower=better)")
-    parser.add_argument("--prores", action="store_true", help="use prores codec (large files, best quality)")
+    parser.add_argument("--no-audio", action="store_true", help="disable audio generation")
 
     args = parser.parse_args()
 
@@ -63,7 +62,7 @@ def main():
     generator = torch.Generator(device="cpu")
     generator.manual_seed(args.seed)
 
-    print(f"\ngenerating...")
+    print(f"\ngenerating{'...' if args.no_audio else ' with audio...'}")
     print(f"  prompt: {args.prompt}")
     print(f"  size: {args.width}x{args.height}, {args.frames} frames")
     print(f"  steps: {args.steps}, guidance: {args.guidance}")
@@ -81,39 +80,26 @@ def main():
         generator=generator,
     )
 
+    # get video frames as tensor
     video_frames = result.frames[0]
+    video_tensor = torch.stack([torch.from_numpy(np.array(f)) for f in video_frames])
 
-    # convert to uint8 numpy arrays
-    frames = []
-    for frame in video_frames:
-        frame = np.array(frame, dtype=np.uint8)
-        frames.append(frame)
+    # get audio if available
+    audio = None
+    audio_sample_rate = None
+    if not args.no_audio and result.audio is not None:
+        audio = result.audio[0].float().cpu()
+        audio_sample_rate = pipe.vocoder.config.output_sampling_rate
+        print(f"audio generated ({audio_sample_rate}Hz)")
 
-    # export video
-    if args.prores:
-        output_path = args.output.replace('.mp4', '.mov') if args.output.endswith('.mp4') else args.output
-        writer = imageio.get_writer(
-            output_path,
-            fps=args.fps,
-            codec='prores_ks',
-            pixelformat='yuv422p10le',
-            output_params=['-profile:v', '3']  # prores hq
-        )
-    else:
-        output_path = args.output
-        writer = imageio.get_writer(
-            output_path,
-            fps=args.fps,
-            codec='libx264',
-            quality=None,
-            pixelformat='yuv420p',
-            output_params=['-crf', str(args.crf), '-preset', 'slow']
-        )
-
-    for frame in frames:
-        writer.append_data(frame)
-    writer.close()
-    args.output = output_path
+    # export with audio
+    encode_video(
+        video=video_tensor,
+        fps=args.fps,
+        audio=audio,
+        audio_sample_rate=audio_sample_rate,
+        output_path=args.output
+    )
 
     print(f"\nsaved to: {args.output}")
     print(f"seed: {args.seed}")

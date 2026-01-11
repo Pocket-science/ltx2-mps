@@ -7,5 +7,6 @@ safetensors>=0.4.0
 sentencepiece>=0.1.99
 imageio>=2.30.0
 imageio-ffmpeg>=0.4.9
+av>=10.0.0
 # Install diffusers from git for LTX2Pipeline:
 # pip install git+https://github.com/huggingface/diffusers.git

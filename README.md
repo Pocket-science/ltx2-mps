@@ -1,6 +1,6 @@
 # ltx2-mps
 
-run [LTX-2](https://huggingface.co/Lightricks/LTX-2) video generation on mac using MPS (metal).
+run [LTX-2](https://huggingface.co/Lightricks/LTX-2) video + audio generation on mac using MPS (metal).
 
 ## what's this about
 
@@ -53,6 +53,7 @@ python generate.py "a cat walking through grass" -o output.mp4
 | `--fps` | 24 | output fps |
 | `--seed` | random | seed for reproducibility |
 | `-n` | "" | negative prompt |
+| `--no-audio` | false | disable audio generation |
 
 ### examples
 
