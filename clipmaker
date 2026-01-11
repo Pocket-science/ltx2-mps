@@ -1,0 +1,5 @@
+#!/bin/bash
+# clipmaker - quick wrapper
+source ~/ltx-venv/bin/activate
+cd "$(dirname "$0")"
+python clipmaker.py "$@"

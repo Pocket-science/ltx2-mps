@@ -1,0 +1,43 @@
+# sample prompts for clipmaker batch mode
+# separate prompts with ---
+# lines starting with # are comments
+
+# cinematic nature
+A breathtaking cinematic wide shot of a lone wolf walking through a snowy forest at dusk. The camera slowly tracks alongside the wolf as it moves gracefully between snow-covered pine trees. Soft blue twilight illuminates the scene, with the wolf's breath visible in the cold air. Ambient sounds of gentle wind and distant owls. Shallow depth of field, film grain, atmospheric and moody.
+---
+
+# urban timelapse style
+A hyperlapse shot moving through neon-lit streets of Tokyo at night. The camera glides forward at street level as crowds of people blur past on either side. Bright signs in Japanese reflect off wet pavement after rain. Electronic ambient sounds and city noise create an immersive soundscape. Cyberpunk aesthetic, vibrant colors, motion blur on pedestrians.
+---
+
+# dramatic portrait
+A cinematic close-up of an elderly fisherman's weathered face, deep wrinkles telling stories of decades at sea. He looks out at the ocean with knowing eyes, salt-and-pepper beard moving slightly in the wind. Golden hour sunlight creates a warm rim light around his profile. The sound of waves and seagulls in the distance. Shallow depth of field, intimate and contemplative.
+---
+
+# fantasy scene
+A mystical wide shot of an ancient stone temple overgrown with glowing bioluminescent vines, deep in an enchanted forest. Magical particles float through the air as moonlight streams through gaps in the canopy above. The camera slowly pushes in toward the temple entrance. Ethereal ambient music and forest sounds create a sense of wonder. Fantasy aesthetic, volumetric lighting, dreamlike atmosphere.
+---
+
+# action sequence
+An intense tracking shot following a motorcycle speeding through desert canyons at sunset. The camera moves alongside the rider as dust kicks up behind the wheels. Orange and red rock formations blur past. Engine roar and wind create an exhilarating soundscape. The rider leans into a sharp curve, sunlight flaring across the lens. Cinematic, dynamic, adrenaline-pumping.
+---
+
+# cozy interior
+A warm, intimate shot inside a rustic cabin during a rainstorm. The camera slowly pans across a crackling fireplace, past stacked books and a steaming mug of tea on a wooden table. Rain streaks down the window, lightning briefly illuminates the room. Sounds of rain, thunder, and fire crackling. Shallow depth of field, amber lighting, hygge aesthetic.
+---
+
+# underwater world
+A mesmerizing underwater shot following a sea turtle gliding through crystal clear tropical waters. Sunbeams pierce the surface above, creating dancing light patterns on the sandy ocean floor. Colorful fish swim past as the turtle moves gracefully through a coral reef. Ambient underwater sounds and gentle current noise. Nature documentary style, serene and meditative.
+---
+
+# vintage nostalgia
+A dreamy medium shot of a woman in a 1960s summer dress riding a vintage bicycle down a tree-lined country road. The camera tracks alongside her as dappled sunlight filters through the leaves above. Her hair and dress flutter in the breeze. Nostalgic soundtrack with birds singing. Soft film grain, warm vintage color grading, golden hour lighting.
+---
+
+# sci-fi atmosphere
+A sweeping establishing shot of a massive space station orbiting Earth, the blue planet glowing in the background. The camera slowly arcs around the station as small spacecraft dock and depart. Solar panels catch the sunlight. Ambient electronic hum and distant radio chatter. Hard science fiction aesthetic, realistic lighting, epic scale.
+---
+
+# food cinematography
+An elegant overhead shot slowly descending toward a beautifully plated gourmet dish on a dark marble surface. Steam rises gently from the food as the camera pushes in. A chef's hand enters frame to add a final garnish. Soft ambient restaurant sounds and gentle plating noises. Shallow depth of field, dramatic side lighting, food photography style.
+---
