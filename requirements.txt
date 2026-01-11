@@ -1,0 +1,11 @@
+torch>=2.0.0
+torchvision
+torchaudio
+transformers>=4.40.0
+accelerate>=0.25.0
+safetensors>=0.4.0
+sentencepiece>=0.1.99
+imageio>=2.30.0
+imageio-ffmpeg>=0.4.9
+# Install diffusers from git for LTX2Pipeline:
+# pip install git+https://github.com/huggingface/diffusers.git
