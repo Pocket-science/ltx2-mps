@@ -1,17 +1,11 @@
 #!/usr/bin/env python3
 """
-LTX-2 MPS Patcher
+patches diffusers to run ltx-2 on apple silicon (mps).
 
-Patches the diffusers library to enable LTX-2 on Apple Silicon (MPS).
-The issue is that LTX-2 uses float64 for RoPE calculations, but MPS doesn't support float64.
-This script forces float32 which works fine for video generation.
+ltx-2 uses float64 for rope, but mps doesn't support it.
+this forces float32 instead - works fine.
 
-Usage:
-    python patch_mps.py
-
-Requirements:
-    - diffusers (dev version with LTX2Pipeline)
-    - pip install git+https://github.com/huggingface/diffusers.git
+usage: python patch_mps.py
 """
 
 import os
@@ -20,7 +14,7 @@ import site
 
 
 def find_diffusers_path():
-    """Find the diffusers installation path."""
+    """find where diffusers is installed"""
     for path in site.getsitepackages():
         diffusers_path = os.path.join(path, "diffusers")
         if os.path.exists(diffusers_path):
@@ -37,20 +31,20 @@ def find_diffusers_path():
 
 
 def patch_file(filepath, old_text, new_text, description):
-    """Patch a file by replacing text."""
+    """replace text in a file"""
     if not os.path.exists(filepath):
-        print(f"  SKIP: {filepath} not found")
+        print(f"  skip: {filepath} not found")
         return False
 
     with open(filepath, 'r') as f:
         content = f.read()
 
     if new_text in content:
-        print(f"  OK: {description} (already patched)")
+        print(f"  ok: {description} (already patched)")
         return True
 
     if old_text not in content:
-        print(f"  SKIP: {description} (pattern not found)")
+        print(f"  skip: {description} (pattern not found)")
         return False
 
     content = content.replace(old_text, new_text)
@@ -58,22 +52,22 @@ def patch_file(filepath, old_text, new_text, description):
     with open(filepath, 'w') as f:
         f.write(content)
 
-    print(f"  PATCHED: {description}")
+    print(f"  patched: {description}")
     return True
 
 
 def main():
-    print("LTX-2 MPS Patcher")
-    print("=" * 50)
+    print("ltx-2 mps patcher")
+    print("-" * 40)
 
     diffusers_path = find_diffusers_path()
 
     if not diffusers_path:
-        print("ERROR: diffusers not found. Install it first:")
+        print("error: diffusers not found")
         print("  pip install git+https://github.com/huggingface/diffusers.git")
         sys.exit(1)
 
-    print(f"Found diffusers at: {diffusers_path}")
+    print(f"found diffusers at: {diffusers_path}")
     print()
 
     # Patch 1: connectors.py
@@ -95,10 +89,10 @@ def main():
     )
 
     print()
-    print("Done! LTX-2 should now work on Apple Silicon MPS.")
+    print("done. ltx-2 should work on mps now.")
     print()
-    print("Test with:")
-    print("  python generate.py 'A cat walking' -o test.mp4")
+    print("test with:")
+    print("  python generate.py 'a cat walking' -o test.mp4")
 
 
 if __name__ == "__main__":
